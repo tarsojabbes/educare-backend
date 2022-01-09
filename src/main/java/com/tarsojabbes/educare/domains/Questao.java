@@ -1,9 +1,6 @@
 package com.tarsojabbes.educare.domains;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -14,11 +11,29 @@ public class Questao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String banca;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String enunciado;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String alternativa_a;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String alternativa_b;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String alternativa_c;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String alternativa_d;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String alternativa_e;
 
     public Questao() {
