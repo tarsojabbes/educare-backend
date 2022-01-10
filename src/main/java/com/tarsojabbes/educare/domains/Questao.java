@@ -36,10 +36,12 @@ public class Questao implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String alternativa_e;
 
+    private String alternativa_correta;
+
     public Questao() {
     }
 
-    public Questao(Integer id, String banca, String enunciado, String alternativa_a, String alternativa_b, String alternativa_c, String alternativa_d, String alternativa_e) {
+    public Questao(Integer id, String banca, String enunciado, String alternativa_a, String alternativa_b, String alternativa_c, String alternativa_d, String alternativa_e, String alternativa_correta) {
         this.id = id;
         this.banca = banca;
         this.enunciado = enunciado;
@@ -48,6 +50,7 @@ public class Questao implements Serializable {
         this.alternativa_c = alternativa_c;
         this.alternativa_d = alternativa_d;
         this.alternativa_e = alternativa_e;
+        this.alternativa_correta = alternativa_correta;
     }
 
     public Integer getId() {
@@ -113,4 +116,8 @@ public class Questao implements Serializable {
     public void setAlternativa_e(String alternativa_e) {
         this.alternativa_e = alternativa_e;
     }
+
+    public String getAlternativa_correta(){return alternativa_correta;}
+
+    public void setAlternativa_correta(String alternativa_correta){this.alternativa_correta = alternativa_correta;}
 }

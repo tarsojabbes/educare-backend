@@ -2,6 +2,8 @@ package com.tarsojabbes.educare.repositories;
 
 import com.tarsojabbes.educare.domains.Questao;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface QuestaRepository extends JpaRepository<Questao, Integer> {
+@Repository
+public interface QuestaoRepository extends JpaRepository<Questao, Integer> {
 }
