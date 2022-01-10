@@ -1,10 +1,9 @@
 package com.tarsojabbes.educare.domains;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Aluno implements Serializable {
@@ -17,6 +16,10 @@ public class Aluno implements Serializable {
     private String email;
     private String senha;
     private String curso;
+
+    @OneToMany(mappedBy = "aluno")
+    private List<Questao> questoes = new ArrayList<>();
+
 
     public Aluno(){}
 
@@ -67,4 +70,8 @@ public class Aluno implements Serializable {
     public void setCurso(String curso) {
         this.curso = curso;
     }
+
+    public List<Questao> getQuestoes(){return questoes;}
+
+    public void setQuestoes(List<Questao> questoes){this.questoes = questoes;}
 }

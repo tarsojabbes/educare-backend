@@ -1,5 +1,7 @@
 package com.tarsojabbes.educare.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,6 +13,7 @@ public class Questao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String banca;
+    private String conteudo;
 
     @Lob
     @Column(columnDefinition = "TEXT")
@@ -38,12 +41,23 @@ public class Questao implements Serializable {
 
     private String alternativa_correta;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinTable(
+            name = "QUESTAO_RESOLVIDA_ALUNO",
+            joinColumns = @JoinColumn(name = "QUESTAO_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ALUNO_ID")
+    )
+    private Aluno aluno;
+
+
     public Questao() {
     }
 
-    public Questao(Integer id, String banca, String enunciado, String alternativa_a, String alternativa_b, String alternativa_c, String alternativa_d, String alternativa_e, String alternativa_correta) {
+    public Questao(Integer id, String banca, String conteudo, String enunciado, String alternativa_a, String alternativa_b, String alternativa_c, String alternativa_d, String alternativa_e, String alternativa_correta) {
         this.id = id;
         this.banca = banca;
+        this.conteudo = conteudo;
         this.enunciado = enunciado;
         this.alternativa_a = alternativa_a;
         this.alternativa_b = alternativa_b;
@@ -120,4 +134,12 @@ public class Questao implements Serializable {
     public String getAlternativa_correta(){return alternativa_correta;}
 
     public void setAlternativa_correta(String alternativa_correta){this.alternativa_correta = alternativa_correta;}
+
+    public String getConteudo() {
+        return conteudo;
+    }
+
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
+    }
 }
