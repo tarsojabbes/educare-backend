@@ -20,7 +20,6 @@ public class Aluno implements Serializable {
     @OneToMany(mappedBy = "aluno")
     private List<Questao> questoes = new ArrayList<>();
 
-
     public Aluno(){}
 
     public Aluno(Integer id, String nome, String email, String senha, String curso) {
