@@ -3,6 +3,7 @@ package com.tarsojabbes.educare.resources;
 import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.services.QuestaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -47,5 +48,15 @@ public class QuestaoResource {
     public ResponseEntity<Void> update(@RequestBody Questao questao, @PathVariable Integer id) {
         questaoService.update(questao, id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/page")
+    public ResponseEntity<Page<Questao>> findPageByConteudo(
+            @RequestParam(value = "conteudo", defaultValue = "") String conteudo,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage
+    ){
+        Page<Questao> questoes = questaoService.findByConteudo(conteudo, page, linesPerPage);
+        return ResponseEntity.ok().body(questoes);
     }
 }

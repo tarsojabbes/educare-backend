@@ -4,6 +4,8 @@ import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.repositories.QuestaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +44,11 @@ public class QuestaoService {
     public void update(Questao questao, Integer id) {
         findById(id);
         questaoRepository.save(questao);
+    }
+
+    public Page<Questao> findByConteudo(String conteudo, Integer page, Integer linesPerPage){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage);
+        return questaoRepository.findByConteudo(conteudo, pageRequest);
     }
 
 }
