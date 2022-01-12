@@ -41,14 +41,14 @@ public class Questao implements Serializable {
 
     private String alternativa_correta;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinTable(
-            name = "QUESTAO_RESOLVIDA_ALUNO",
-            joinColumns = @JoinColumn(name = "QUESTAO_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ALUNO_ID")
-    )
-    private Aluno aluno;
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinTable(
+//            name = "QUESTAO_RESOLVIDA_ALUNO",
+//            joinColumns = @JoinColumn(name = "questaoId"),
+//            inverseJoinColumns = @JoinColumn(name = "alunoId")
+//    )
+//    private Aluno aluno;
 
 
     public Questao() {
