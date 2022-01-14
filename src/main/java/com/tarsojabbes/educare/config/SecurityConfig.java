@@ -1,5 +1,7 @@
 package com.tarsojabbes.educare.config;
 
+import com.tarsojabbes.educare.security.JWTAuthenticationFilter;
+import com.tarsojabbes.educare.security.JWTUtil;
 import com.tarsojabbes.educare.services.AlunoDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     // Array de strings com todas as rotas que serão públicas
     private static final String[] PUBLIC_MATCHERS_GET = {
             "/alunos/**",
@@ -36,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable();
         // Permite acesso não-autorizado para os PUBLIC_MATCHERS e de método GET e qualquer outra Req deve ser autenticada
         http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll().anyRequest().authenticated();
-
+        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
