@@ -1,5 +1,7 @@
 package com.tarsojabbes.educare.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Aluno implements Serializable {
     private Integer id;
     private String nome;
     private String email;
+    @JsonIgnore
     private String senha;
     private String curso;
 

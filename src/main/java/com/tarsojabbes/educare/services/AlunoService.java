@@ -4,6 +4,7 @@ import com.tarsojabbes.educare.domains.Aluno;
 import com.tarsojabbes.educare.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public class AlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public List<Aluno> findAll(){
         List<Aluno> alunos =  alunoRepository.findAll();
@@ -26,8 +30,8 @@ public class AlunoService {
     }
 
     public Aluno insert(Aluno aluno){
-        aluno.setId(null);
-        return alunoRepository.save(aluno);
+        Aluno createdAluno = new Aluno(null, aluno.getNome(), aluno.getEmail(), aluno.getCurso(), bCryptPasswordEncoder.encode(aluno.getSenha()));
+        return alunoRepository.save(createdAluno);
     }
 
     public void delete(Integer id){
@@ -41,7 +45,8 @@ public class AlunoService {
 
     public void update(Aluno aluno, Integer id) {
         findById(aluno.getId());
-        alunoRepository.save(aluno);
+        Aluno toBeUpdatedAluno = new Aluno(aluno.getId(), aluno.getNome(), aluno.getEmail(), aluno.getCurso(), bCryptPasswordEncoder.encode(aluno.getSenha()));
+        alunoRepository.save(toBeUpdatedAluno);
     }
 
 }
