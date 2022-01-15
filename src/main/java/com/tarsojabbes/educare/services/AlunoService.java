@@ -30,7 +30,7 @@ public class AlunoService {
     }
 
     public Aluno insert(Aluno aluno){
-        Aluno createdAluno = new Aluno(null, aluno.getNome(), aluno.getEmail(), aluno.getCurso(), bCryptPasswordEncoder.encode(aluno.getSenha()));
+        Aluno createdAluno = new Aluno(null, aluno.getNome(), aluno.getEmail(), bCryptPasswordEncoder.encode(aluno.getSenha()), aluno.getCurso());
         return alunoRepository.save(createdAluno);
     }
 

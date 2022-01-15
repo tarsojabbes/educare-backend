@@ -34,13 +34,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/alunos/**",
             "/questoes/**",
     };
+    private static final String[] PUBLIC_MATCHERS_POST = {
+            "/alunos/**",
+            "/login"
+    };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Inicia o cors e desativa a proteção a ataques por ser uma aplicação stateless
         http.cors().and().csrf().disable();
         // Permite acesso não-autorizado para os PUBLIC_MATCHERS e de método GET e qualquer outra Req deve ser autenticada
-        http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll().anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+                .anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
