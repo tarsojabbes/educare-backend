@@ -45,7 +45,7 @@ public class AlunoService {
 
     public void update(Aluno aluno, Integer id) {
         findById(aluno.getId());
-        Aluno toBeUpdatedAluno = new Aluno(aluno.getId(), aluno.getNome(), aluno.getEmail(), aluno.getCurso(), bCryptPasswordEncoder.encode(aluno.getSenha()));
+        Aluno toBeUpdatedAluno = new Aluno(aluno.getId(), aluno.getNome(), aluno.getEmail(), bCryptPasswordEncoder.encode(aluno.getSenha()), aluno.getCurso());
         alunoRepository.save(toBeUpdatedAluno);
     }
 

@@ -49,7 +49,7 @@ public class AlunoSS implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override

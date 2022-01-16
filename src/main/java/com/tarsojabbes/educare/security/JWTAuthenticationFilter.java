@@ -2,10 +2,12 @@ package com.tarsojabbes.educare.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tarsojabbes.educare.domains.Credenciais;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -18,6 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     private AuthenticationManager authenticationManager;
 
     private JWTUtil jwtUtil;
@@ -33,8 +39,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                                 HttpServletResponse res) throws AuthenticationException {
 
         try {
-            Credenciais creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), Credenciais.class);
+            Credenciais creds = new ObjectMapper().readValue(req.getInputStream(), Credenciais.class);
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
 
