@@ -1,6 +1,7 @@
 package com.tarsojabbes.educare.config;
 
 import com.tarsojabbes.educare.security.JWTAuthenticationFilter;
+import com.tarsojabbes.educare.security.JWTAuthorizationFilter;
 import com.tarsojabbes.educare.security.JWTUtil;
 import com.tarsojabbes.educare.services.AlunoDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
-                .anyRequest().permitAll();
+                .anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
