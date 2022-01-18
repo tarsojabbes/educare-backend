@@ -2,6 +2,7 @@ package com.tarsojabbes.educare.services;
 
 import com.tarsojabbes.educare.domains.Aluno;
 import com.tarsojabbes.educare.repositories.AlunoRepository;
+import com.tarsojabbes.educare.security.AlunoSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,8 +26,13 @@ public class AlunoService {
     }
 
     public Optional<Aluno> findById(Integer id){
-        Optional<Aluno> aluno = alunoRepository.findById(id);
-        return aluno;
+        AlunoSS aluno = UserService.authenticated();
+
+        if (aluno == null || !id.equals(aluno.getId())) {
+            return null;
+        }
+        Optional<Aluno> obj = alunoRepository.findById(id);
+        return obj;
     }
 
     public Aluno insert(Aluno aluno){
