@@ -4,6 +4,7 @@ import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.domains.QuestaoAluno;
 import com.tarsojabbes.educare.repositories.QuestaoAlunoRepository;
 import com.tarsojabbes.educare.repositories.QuestaoRepository;
+import com.tarsojabbes.educare.security.AlunoSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,12 @@ public class QuestaoAlunoService {
     private QuestaoRepository questaoRepository;
 
     public List<QuestaoAluno> findAllByAlunoId(Integer alunoId) {
+        AlunoSS aluno = UserService.authenticated();
+
+        if (aluno == null || !alunoId.equals(aluno.getId())) {
+            return null;
+        }
+
         List<QuestaoAluno> questaoAlunos = questaoAlunoRepository.findAllByAlunoId(alunoId);
         return questaoAlunos;
     }
