@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
@@ -13,7 +14,10 @@ public class QuestaoAluno implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Campo questaoId é de preenchimento obrigatório")
     private Integer questaoId;
+    @NotEmpty(message = "Campo alunoId é de preenchimento obrigatório")
     private Integer alunoId;
 
     public QuestaoAluno(){

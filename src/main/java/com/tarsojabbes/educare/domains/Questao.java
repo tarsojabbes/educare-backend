@@ -3,6 +3,7 @@ package com.tarsojabbes.educare.domains;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
@@ -12,43 +13,43 @@ public class Questao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotEmpty(message = "Campo banca é de preenchimento obrigatório")
     private String banca;
+    @NotEmpty(message = "Campo conteúdo é de preenchimento obrigatório")
     private String conteudo;
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotEmpty(message = "Campo enunciado é de preenchimento obrigatório")
     private String enunciado;
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotEmpty(message = "Campo Alternativa A é de preenchimento obrigatório")
     private String alternativa_a;
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotEmpty(message = "Campo Alternativa B é de preenchimento obrigatório")
     private String alternativa_b;
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotEmpty(message = "Campo Alternativa C é de preenchimento obrigatório")
     private String alternativa_c;
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotEmpty(message = "Campo Alternativa D é de preenchimento obrigatório")
     private String alternativa_d;
 
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotEmpty(message = "Campo Alternativa E é de preenchimento obrigatório")
     private String alternativa_e;
 
+    @NotEmpty(message = "Campo Alternativa Correta é de preenchimento obrigatório")
     private String alternativa_correta;
-
-//    @JsonIgnore
-//    @ManyToOne
-//    @JoinTable(
-//            name = "QUESTAO_RESOLVIDA_ALUNO",
-//            joinColumns = @JoinColumn(name = "questaoId"),
-//            inverseJoinColumns = @JoinColumn(name = "alunoId")
-//    )
-//    private Aluno aluno;
 
 
     public Questao() {

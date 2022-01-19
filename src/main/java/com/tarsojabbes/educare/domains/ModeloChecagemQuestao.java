@@ -1,12 +1,16 @@
 package com.tarsojabbes.educare.domains;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 public class ModeloChecagemQuestao implements Serializable {
     private static final long serialVersionUUID = 1L;
 
+    @NotEmpty(message = "Campo questão é de preenchimento obrigatório")
     private Questao questao;
+    @NotEmpty(message = "Campo alternativa é de preenchimento obrigatório")
     private String alternativa;
+    @NotEmpty(message = "Campo alunoId é de preenchimento obrigatório")
     private Integer alunoId;
 
     public ModeloChecagemQuestao() {

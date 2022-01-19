@@ -1,8 +1,11 @@
 package com.tarsojabbes.educare.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +17,23 @@ public class Aluno implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Campo nome é de preenchimento obrigatório")
+    @Length(min = 3, max = 255, message = "O tamanho deve ser entre 3 e 255 caracteres")
     private String nome;
+
+    @NotEmpty(message = "Campo email é de preenchimento obrigatório")
+    @Email(message = "Email informado é inválido")
     private String email;
+
+    @NotEmpty(message = "Campo senha é de preenchimento obrigatório")
+    @Length(min=8, message = "O tamanho deve ser de, no mínimo, 8 caracteres")
     private String senha;
+
+    @NotEmpty(message = "Campo curso é de preenchimento obrigatório")
+    @Length(min=5, max = 255, message = "O tamanho deve ser entre 5 e 255 caracteres")
     private String curso;
 
-//    @OneToMany(mappedBy = "aluno")
-//    private List<Questao> questoes = new ArrayList<>();
 
     public Aluno(){}
 
@@ -72,7 +85,4 @@ public class Aluno implements Serializable {
         this.curso = curso;
     }
 
-//    public List<Questao> getQuestoes(){return questoes;}
-//
-//    public void setQuestoes(List<Questao> questoes){this.questoes = questoes;}
 }
