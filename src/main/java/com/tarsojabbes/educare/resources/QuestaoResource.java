@@ -50,13 +50,13 @@ public class QuestaoResource {
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/page")
+    @RequestMapping(method = RequestMethod.GET, value = "/lista")
     public ResponseEntity<Page<Questao>> findPageByConteudo(
             @RequestParam(value = "conteudo", defaultValue = "") String conteudo,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage
+            @RequestParam(value = "questoesPerPage", defaultValue = "1") Integer questoesPerPage
     ){
-        Page<Questao> questoes = questaoService.findByConteudo(conteudo, page, linesPerPage);
+        Page<Questao> questoes = questaoService.findByConteudo(conteudo, page, questoesPerPage);
         return ResponseEntity.ok().body(questoes);
     }
 }

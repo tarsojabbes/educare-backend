@@ -46,8 +46,8 @@ public class QuestaoService {
         questaoRepository.save(questao);
     }
 
-    public Page<Questao> findByConteudo(String conteudo, Integer page, Integer linesPerPage){
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage);
+    public Page<Questao> findByConteudo(String conteudo, Integer page, Integer questoesPerPage){
+        PageRequest pageRequest = PageRequest.of(page, questoesPerPage);
         return questaoRepository.findByConteudo(conteudo, pageRequest);
     }
 
