@@ -23,6 +23,8 @@ public class AuthResource {
         AlunoSS aluno = UserService.authenticated();
         String token = jwtUtil.generateToken(aluno.getUsername());
         response.addHeader("Authorization", "Bearer " + token);
+        // Configuração de CORS p/ expor header Authorization
+        response.addHeader("access-control-expose-headers", "Authorization");
         return ResponseEntity.noContent().build();
     }
 }
