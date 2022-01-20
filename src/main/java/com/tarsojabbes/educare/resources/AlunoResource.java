@@ -1,6 +1,7 @@
 package com.tarsojabbes.educare.resources;
 
 import com.tarsojabbes.educare.domains.Aluno;
+import com.tarsojabbes.educare.domains.CustomError;
 import com.tarsojabbes.educare.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,21 +33,32 @@ public class AlunoResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Aluno alunoObj){
+    public ResponseEntity<?> insert(@RequestBody Aluno alunoObj){
         Aluno aluno = alunoService.insert(alunoObj);
+        if (aluno == null) {
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Aluno com email " + alunoObj.getEmail() + " já existe"));
+        }
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(alunoObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        alunoService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Integer id){
+        Optional<Aluno> aluno = alunoService.delete(id);
+        if (aluno == null) {
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Aluno de id " + id + " inexistente"));
+        }
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.PUT, value ="/{id}")
-    public ResponseEntity<Void> update(@RequestBody Aluno aluno, @PathVariable Integer id){
-        alunoService.update(aluno, id);
+    public ResponseEntity<?> update(@RequestBody Aluno aluno, @PathVariable Integer id){
+        Optional<Aluno> updatedAluno = alunoService.update(aluno, id);
+
+        if (updatedAluno == null) {
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Aluno de id " + id + " inexistente"));
+        }
+
         return ResponseEntity.noContent().build();
     }
 }

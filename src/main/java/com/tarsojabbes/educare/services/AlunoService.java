@@ -36,23 +36,36 @@ public class AlunoService {
     }
 
     public Aluno insert(Aluno aluno){
+        Aluno doesAlunoAlreadyExists = alunoRepository.findByEmail(aluno.getEmail());
+        if (doesAlunoAlreadyExists != null) {
+            return null;
+        }
         Aluno createdAluno = new Aluno(null, aluno.getNome(), aluno.getEmail(), bCryptPasswordEncoder.encode(aluno.getSenha()), aluno.getCurso());
         return alunoRepository.save(createdAluno);
     }
 
-    public void delete(Integer id){
-        findById(id);
-        try {
-            alunoRepository.deleteById(id);
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Erro ao excluir aluno");
+    public Optional<Aluno> delete(Integer id){
+        Optional<Aluno> doesAlunoAlreadyExists = findById(id);
+
+        if (doesAlunoAlreadyExists == null) {
+            return null;
         }
+
+        alunoRepository.deleteById(id);
+        return doesAlunoAlreadyExists;
+
     }
 
-    public void update(Aluno aluno, Integer id) {
-        findById(aluno.getId());
+    public Optional<Aluno> update(Aluno aluno, Integer id) {
+        Optional<Aluno> doesAlunoAlreadyExists = findById(aluno.getId());
+        if (doesAlunoAlreadyExists == null) {
+            return null;
+        }
+
         Aluno toBeUpdatedAluno = new Aluno(aluno.getId(), aluno.getNome(), aluno.getEmail(), bCryptPasswordEncoder.encode(aluno.getSenha()), aluno.getCurso());
         alunoRepository.save(toBeUpdatedAluno);
+
+        return Optional.of(toBeUpdatedAluno);
     }
 
 }
