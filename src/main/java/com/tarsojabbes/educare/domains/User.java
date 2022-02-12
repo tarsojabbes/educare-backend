@@ -1,5 +1,6 @@
 package com.tarsojabbes.educare.domains;
 
+import com.tarsojabbes.educare.domains.enums.TipoUser;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
-public class Professor implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUUID = 1L;
 
     @Id
@@ -24,16 +25,22 @@ public class Professor implements Serializable {
     private String email;
 
     @NotEmpty(message = "Campo senha é de preenchimento obrigatório")
-    @Length(min = 8, message = "O tamanho deve ser de no mínimo 8 caracteres")
+    @Length(min=8, message = "O tamanho deve ser de, no mínimo, 8 caracteres")
     private String senha;
 
-    public Professor(){}
 
-    public Professor(Integer id, String nome, String email, String senha) {
+    @NotEmpty(message = "Campo tipo é ded preenchimento obrigatório")
+    private Integer tipo;
+
+
+    public User(){}
+
+    public User(Integer id, String nome, String email, String senha, TipoUser tipo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.tipo = (tipo == null ? null : tipo.getCod());
     }
 
     public Integer getId() {
@@ -67,4 +74,14 @@ public class Professor implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public TipoUser getTipo(){
+        return TipoUser.toEnum(tipo);
+    }
+
+    public void setTipo(TipoUser tipo) {
+        this.tipo = tipo.getCod();
+    }
+
+
 }

@@ -3,7 +3,6 @@ package com.tarsojabbes.educare.config;
 import com.tarsojabbes.educare.security.JWTAuthenticationFilter;
 import com.tarsojabbes.educare.security.JWTAuthorizationFilter;
 import com.tarsojabbes.educare.security.JWTUtil;
-import com.tarsojabbes.educare.services.AlunoDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

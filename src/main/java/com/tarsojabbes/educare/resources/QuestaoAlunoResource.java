@@ -1,8 +1,6 @@
 package com.tarsojabbes.educare.resources;
 
-import com.tarsojabbes.educare.domains.Aluno;
 import com.tarsojabbes.educare.domains.ModeloChecagemQuestao;
-import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.domains.QuestaoAluno;
 import com.tarsojabbes.educare.services.QuestaoAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class QuestaoAlunoResource {

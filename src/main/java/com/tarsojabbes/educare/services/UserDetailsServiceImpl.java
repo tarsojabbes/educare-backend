@@ -1,27 +1,25 @@
 package com.tarsojabbes.educare.services;
 
-import com.tarsojabbes.educare.domains.Professor;
-import com.tarsojabbes.educare.repositories.ProfessorRepository;
-import com.tarsojabbes.educare.security.ProfessorSS;
+import com.tarsojabbes.educare.domains.User;
+import com.tarsojabbes.educare.repositories.UserRepository;
+import com.tarsojabbes.educare.security.AlunoSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-public class ProfessorDetailsServiceImpl implements UserDetailsService {
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private ProfessorRepository professorRepository;
+    private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Professor professor = professorRepository.findByEmail(email);
-
-        if (professor == null){
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             throw new UsernameNotFoundException(email);
         }
-
-        return new ProfessorSS(professor.getId(), professor.getNome(), professor.getSenha());
-
-
+        return new AlunoSS(user.getId(), user.getEmail(), user.getSenha());
     }
 }
