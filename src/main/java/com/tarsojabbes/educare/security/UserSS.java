@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class AlunoSS implements UserDetails {
+public class UserSS implements UserDetails {
     private static final long serialVersionUUID = 1L;
 
     private Integer id;
@@ -13,10 +13,10 @@ public class AlunoSS implements UserDetails {
     private String senha;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public AlunoSS() {
+    public UserSS() {
     }
 
-    public AlunoSS(Integer id, String email, String senha) {
+    public UserSS(Integer id, String email, String senha) {
         super();
         this.id = id;
         this.email = email;

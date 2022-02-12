@@ -1,17 +1,14 @@
 package com.tarsojabbes.educare.services;
 
-import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.domains.QuestaoAluno;
 import com.tarsojabbes.educare.repositories.QuestaoAlunoRepository;
 import com.tarsojabbes.educare.repositories.QuestaoRepository;
-import com.tarsojabbes.educare.security.AlunoSS;
+import com.tarsojabbes.educare.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuestaoAlunoService {
@@ -23,7 +20,7 @@ public class QuestaoAlunoService {
     private QuestaoRepository questaoRepository;
 
     public List<QuestaoAluno> findAllByAlunoId(Integer alunoId) {
-        AlunoSS aluno = UserService.authenticated();
+        UserSS aluno = UserService.authenticated();
 
         if (aluno == null || !alunoId.equals(aluno.getId())) {
             return null;

@@ -1,13 +1,13 @@
 package com.tarsojabbes.educare.services;
 
-import com.tarsojabbes.educare.security.AlunoSS;
+import com.tarsojabbes.educare.security.UserSS;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserService {
 
-    public static AlunoSS authenticated() {
+    public static UserSS authenticated() {
         try {
-            return (AlunoSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (Exception e) {
             return null;
         }

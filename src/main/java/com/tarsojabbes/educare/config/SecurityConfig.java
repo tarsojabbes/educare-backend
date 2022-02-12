@@ -33,14 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Array de strings com todas as rotas que serão públicas
     private static final String[] PUBLIC_MATCHERS_GET = {
-            "/alunos/**",
+            "/usuarios/**",
             "/questoes/**",
-            "/professores/**"
     };
     private static final String[] PUBLIC_MATCHERS_POST = {
-            "/alunos/**",
+            "/usuarios/**",
             "/login/**",
-            "/professores/**"
     };
 
     @Override

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/alunos")
+@RequestMapping(value = "/usuarios")
 public class UserResource {
 
     @Autowired
@@ -28,15 +28,15 @@ public class UserResource {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<Optional<User>> findById(@PathVariable Integer id){
-        Optional<User> aluno = usersService.findById(id);
-        return ResponseEntity.ok().body(aluno);
+        Optional<User> user = usersService.findById(id);
+        return ResponseEntity.ok().body(user);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> insert(@RequestBody User userObj){
         User user = usersService.insert(userObj);
         if (user == null) {
-            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Aluno com email " + userObj.getEmail() + " já existe"));
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Usuário com email " + userObj.getEmail() + " já existe"));
         }
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -44,19 +44,19 @@ public class UserResource {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id){
-        Optional<User> aluno = usersService.delete(id);
-        if (aluno == null) {
-            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Aluno de id " + id + " inexistente"));
+        Optional<User> user = usersService.delete(id);
+        if (user == null) {
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Usuário de id " + id + " inexistente"));
         }
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(method = RequestMethod.PUT, value ="/{id}")
     public ResponseEntity<?> update(@RequestBody User user, @PathVariable Integer id){
-        Optional<User> updatedAluno = usersService.update(user, id);
+        Optional<User> updatedUser = usersService.update(user, id);
 
-        if (updatedAluno == null) {
-            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Aluno de id " + id + " inexistente"));
+        if (updatedUser == null) {
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Usuário de id " + id + " inexistente"));
         }
 
         return ResponseEntity.noContent().build();

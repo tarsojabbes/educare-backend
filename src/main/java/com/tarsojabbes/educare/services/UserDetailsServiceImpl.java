@@ -2,7 +2,7 @@ package com.tarsojabbes.educare.services;
 
 import com.tarsojabbes.educare.domains.User;
 import com.tarsojabbes.educare.repositories.UserRepository;
-import com.tarsojabbes.educare.security.AlunoSS;
+import com.tarsojabbes.educare.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(email);
         }
-        return new AlunoSS(user.getId(), user.getEmail(), user.getSenha());
+        return new UserSS(user.getId(), user.getEmail(), user.getSenha());
     }
 }

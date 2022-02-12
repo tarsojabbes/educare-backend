@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "usuarios")
 public class User implements Serializable {
     private static final long serialVersionUUID = 1L;
 
@@ -28,8 +28,6 @@ public class User implements Serializable {
     @Length(min=8, message = "O tamanho deve ser de, no mínimo, 8 caracteres")
     private String senha;
 
-
-    @NotEmpty(message = "Campo tipo é ded preenchimento obrigatório")
     private Integer tipo;
 
 

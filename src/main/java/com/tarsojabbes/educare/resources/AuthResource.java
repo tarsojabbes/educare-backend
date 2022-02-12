@@ -1,6 +1,6 @@
 package com.tarsojabbes.educare.resources;
 
-import com.tarsojabbes.educare.security.AlunoSS;
+import com.tarsojabbes.educare.security.UserSS;
 import com.tarsojabbes.educare.security.JWTUtil;
 import com.tarsojabbes.educare.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class AuthResource {
 
     @RequestMapping(method = RequestMethod.POST, value = "/refresh_token")
     public ResponseEntity<Void> refreshToken(HttpServletResponse response) {
-        AlunoSS aluno = UserService.authenticated();
-        String token = jwtUtil.generateToken(aluno.getUsername());
+        UserSS user = UserService.authenticated();
+        String token = jwtUtil.generateToken(user.getUsername());
         response.addHeader("Authorization", "Bearer " + token);
         // Configuração de CORS p/ expor header Authorization
         response.addHeader("access-control-expose-headers", "Authorization");

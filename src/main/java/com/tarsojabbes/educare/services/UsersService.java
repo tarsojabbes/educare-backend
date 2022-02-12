@@ -2,7 +2,7 @@ package com.tarsojabbes.educare.services;
 
 import com.tarsojabbes.educare.domains.User;
 import com.tarsojabbes.educare.repositories.UserRepository;
-import com.tarsojabbes.educare.security.AlunoSS;
+import com.tarsojabbes.educare.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class UsersService {
     }
 
     public Optional<User> findById(Integer id){
-        AlunoSS aluno = UserService.authenticated();
+        UserSS aluno = UserService.authenticated();
 
         if (aluno == null || !id.equals(aluno.getId())) {
             return null;
