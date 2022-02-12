@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "questoes")
 public class Questao implements Serializable {
     private static final long serialVersionUUID = 1L;
 
@@ -51,11 +51,13 @@ public class Questao implements Serializable {
     @NotEmpty(message = "Campo Alternativa Correta é de preenchimento obrigatório")
     private String alternativa_correta;
 
+    private Integer idCriador;
+
 
     public Questao() {
     }
 
-    public Questao(Integer id, String banca, String conteudo, String enunciado, String alternativa_a, String alternativa_b, String alternativa_c, String alternativa_d, String alternativa_e, String alternativa_correta) {
+    public Questao(Integer id, String banca, String conteudo, String enunciado, String alternativa_a, String alternativa_b, String alternativa_c, String alternativa_d, String alternativa_e, String alternativa_correta, Integer idCriador) {
         this.id = id;
         this.banca = banca;
         this.conteudo = conteudo;
@@ -66,6 +68,7 @@ public class Questao implements Serializable {
         this.alternativa_d = alternativa_d;
         this.alternativa_e = alternativa_e;
         this.alternativa_correta = alternativa_correta;
+        this.idCriador = idCriador;
     }
 
     public Integer getId() {
@@ -142,5 +145,13 @@ public class Questao implements Serializable {
 
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
+    }
+
+    public Integer getIdCriador() {
+        return idCriador;
+    }
+
+    public void setIdCriador(Integer idCriador) {
+        this.idCriador = idCriador;
     }
 }

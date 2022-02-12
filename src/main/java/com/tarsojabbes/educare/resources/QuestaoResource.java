@@ -59,4 +59,13 @@ public class QuestaoResource {
         Page<Questao> questoes = questaoService.findByConteudo(conteudo, page, questoesPerPage);
         return ResponseEntity.ok().body(questoes);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/professor/{id}")
+    public ResponseEntity<List<Questao>> findByIdProfessor(@PathVariable Integer id){
+        List<Questao> questoes = questaoService.findByIdCriador(id);
+        return ResponseEntity.ok().body(questoes);
+
+    }
+
+
 }

@@ -51,4 +51,9 @@ public class QuestaoService {
         return questaoRepository.findByConteudo(conteudo, pageRequest);
     }
 
+    public List<Questao> findByIdCriador(Integer id){
+        List<Questao> questoes = questaoRepository.findByIdCriador(id);
+        return questoes;
+    }
+
 }

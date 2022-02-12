@@ -7,10 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Repository
 public interface QuestaoRepository extends JpaRepository<Questao, Integer> {
 
     @Transactional(readOnly = true)
     Page<Questao> findByConteudo(String conteudo, Pageable pageable);
+
+    @Transactional
+    List<Questao> findByIdCriador(Integer id);
 }
