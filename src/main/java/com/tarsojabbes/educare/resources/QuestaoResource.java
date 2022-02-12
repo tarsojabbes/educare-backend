@@ -1,5 +1,6 @@
 package com.tarsojabbes.educare.resources;
 
+import com.tarsojabbes.educare.domains.CustomError;
 import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.services.QuestaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,8 +63,13 @@ public class QuestaoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/professor/{id}")
-    public ResponseEntity<List<Questao>> findByIdProfessor(@PathVariable Integer id){
+    public ResponseEntity<?> findByIdProfessor(@PathVariable Integer id){
         List<Questao> questoes = questaoService.findByIdCriador(id);
+
+        if (questoes == null) {
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),"Vocẽ não pode acessar os dados do usuário de id "+id));
+        }
+
         return ResponseEntity.ok().body(questoes);
 
     }

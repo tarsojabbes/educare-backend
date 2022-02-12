@@ -2,6 +2,7 @@ package com.tarsojabbes.educare.services;
 
 import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.repositories.QuestaoRepository;
+import com.tarsojabbes.educare.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -52,6 +53,12 @@ public class QuestaoService {
     }
 
     public List<Questao> findByIdCriador(Integer id){
+        UserSS user = UserService.authenticated();
+
+        if (user == null || !id.equals(user.getId())){
+            return null;
+        }
+
         List<Questao> questoes = questaoRepository.findByIdCriador(id);
         return questoes;
     }
