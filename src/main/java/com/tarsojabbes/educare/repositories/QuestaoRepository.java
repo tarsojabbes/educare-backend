@@ -16,6 +16,9 @@ public interface QuestaoRepository extends JpaRepository<Questao, Integer> {
     @Transactional(readOnly = true)
     Page<Questao> findByConteudo(String conteudo, Pageable pageable);
 
-    @Transactional
+    @Transactional(readOnly = true)
     List<Questao> findByIdCriador(Integer id);
+
+    @Transactional(readOnly = true)
+    Questao findAllById(Integer id);
 }

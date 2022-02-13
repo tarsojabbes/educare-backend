@@ -6,8 +6,8 @@ import java.io.Serializable;
 public class ModeloChecagemQuestao implements Serializable {
     private static final long serialVersionUUID = 1L;
 
-    @NotEmpty(message = "Campo questão é de preenchimento obrigatório")
-    private Questao questao;
+    @NotEmpty(message = "Campo questãoId é de preenchimento obrigatório")
+    private Integer questaoId;
     @NotEmpty(message = "Campo alternativa é de preenchimento obrigatório")
     private String alternativa;
     @NotEmpty(message = "Campo alunoId é de preenchimento obrigatório")
@@ -16,18 +16,18 @@ public class ModeloChecagemQuestao implements Serializable {
     public ModeloChecagemQuestao() {
     }
 
-    public ModeloChecagemQuestao(Questao questao, String alternativa, Integer alunoId) {
-        this.questao = questao;
+    public ModeloChecagemQuestao(Integer questaoId, String alternativa, Integer alunoId) {
+        this.questaoId = questaoId;
         this.alternativa = alternativa;
         this.alunoId = alunoId;
     }
 
-    public Questao getQuestao() {
-        return questao;
+    public Integer getQuestaoId() {
+        return questaoId;
     }
 
-    public void setQuestao(Questao questao) {
-        this.questao = questao;
+    public void setQuestao(Integer questaoId) {
+        this.questaoId = questaoId;
     }
 
     public String getAlternativa() {

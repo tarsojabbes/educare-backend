@@ -1,6 +1,7 @@
 package com.tarsojabbes.educare.services;
 
 import com.tarsojabbes.educare.domains.EstatisticaQuestao;
+import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.domains.QuestaoAluno;
 import com.tarsojabbes.educare.repositories.QuestaoAlunoRepository;
 import com.tarsojabbes.educare.repositories.QuestaoRepository;
@@ -10,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestaoAlunoService {
@@ -45,7 +47,11 @@ public class QuestaoAlunoService {
         }
     }
 
-    public Integer check(Integer questaoId, String alternativa_correta, String alternativa, Integer alunoId) {
+    public Integer check(Integer questaoId, String alternativa, Integer alunoId) {
+
+        Questao questao = questaoRepository.findAllById(questaoId);
+        String alternativa_correta = questao.getAlternativa_correta();
+
         if (alternativa_correta.equalsIgnoreCase(alternativa)) {
             QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId, 1);
             insert(questaoAluno);
