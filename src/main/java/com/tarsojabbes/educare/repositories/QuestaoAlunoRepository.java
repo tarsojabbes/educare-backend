@@ -14,4 +14,7 @@ public interface QuestaoAlunoRepository extends JpaRepository<QuestaoAluno, Inte
 
     @Transactional(readOnly = true)
     List<QuestaoAluno> findAllByAlunoId(Integer alunoId);
+
+    @Transactional(readOnly = true)
+    List<QuestaoAluno> findAllByQuestaoId(Integer questaId);
 }

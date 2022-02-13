@@ -1,5 +1,6 @@
 package com.tarsojabbes.educare.resources;
 
+import com.tarsojabbes.educare.domains.EstatisticaQuestao;
 import com.tarsojabbes.educare.domains.ModeloChecagemQuestao;
 import com.tarsojabbes.educare.domains.QuestaoAluno;
 import com.tarsojabbes.educare.services.QuestaoAlunoService;
@@ -40,6 +41,12 @@ public class QuestaoAlunoResource {
     private ResponseEntity<Integer> check(@RequestBody ModeloChecagemQuestao modelo){
         Integer value = questaoAlunoService.check(modelo.getQuestao().getId(), modelo.getQuestao().getAlternativa_correta(), modelo.getAlternativa(), modelo.getAlunoId());
         return ResponseEntity.ok().body(value);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/estatistica-questao/{id}")
+    private ResponseEntity<EstatisticaQuestao> estatisticaById(@PathVariable Integer id){
+        EstatisticaQuestao estatisticas = questaoAlunoService.estatisticas(id);
+        return ResponseEntity.ok().body(estatisticas);
     }
 
 }
