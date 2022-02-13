@@ -36,7 +36,7 @@ public class QuestaoAlunoResource {
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/checa-questao")
+    @RequestMapping(method = RequestMethod.POST, value = "/checa-questao")
     private ResponseEntity<Integer> check(@RequestBody ModeloChecagemQuestao modelo){
         Integer value = questaoAlunoService.check(modelo.getQuestao().getId(), modelo.getQuestao().getAlternativa_correta(), modelo.getAlternativa(), modelo.getAlunoId());
         return ResponseEntity.ok().body(value);

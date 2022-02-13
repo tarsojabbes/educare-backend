@@ -46,11 +46,12 @@ public class QuestaoAlunoService {
 
     public Integer check(Integer questaoId, String alternativa_correta, String alternativa, Integer alunoId) {
         if (alternativa_correta.equalsIgnoreCase(alternativa)) {
-            QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId);
+            QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId, 1);
             insert(questaoAluno);
             return 1;
         }
-
+        QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId, 0);
+        insert(questaoAluno);
         return 0;
     }
 }

@@ -19,15 +19,18 @@ public class QuestaoAluno implements Serializable {
     private Integer questaoId;
     @NotEmpty(message = "Campo alunoId é de preenchimento obrigatório")
     private Integer alunoId;
+    private Integer acerto;
+
 
     public QuestaoAluno(){
 
     }
 
-    public QuestaoAluno(Integer id, Integer questaoId, Integer alunoId) {
+    public QuestaoAluno(Integer id, Integer questaoId, Integer alunoId, Integer acerto) {
         this.id = id;
         this.questaoId = questaoId;
         this.alunoId = alunoId;
+        this.acerto = acerto;
     }
 
     public Integer getquestaoId() {
@@ -52,5 +55,13 @@ public class QuestaoAluno implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getAcerto() {
+        return acerto;
+    }
+
+    public void setAcerto(Integer acerto) {
+        this.acerto = acerto;
     }
 }
