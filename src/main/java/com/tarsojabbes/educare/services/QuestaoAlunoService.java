@@ -1,5 +1,6 @@
 package com.tarsojabbes.educare.services;
 
+import com.tarsojabbes.educare.domains.EstatisticaAluno;
 import com.tarsojabbes.educare.domains.EstatisticaQuestao;
 import com.tarsojabbes.educare.domains.Questao;
 import com.tarsojabbes.educare.domains.QuestaoAluno;
@@ -67,7 +68,8 @@ public class QuestaoAlunoService {
         return 0;
     }
 
-    public EstatisticaQuestao estatisticas(Integer id){
+    public EstatisticaQuestao estatisticaQuestao(Integer id){
+
         List<QuestaoAluno> questoesObj = questaoAlunoRepository.findAllByQuestaoId(id);
 
         int submissoes = questoesObj.toArray().length;
@@ -91,6 +93,29 @@ public class QuestaoAlunoService {
 
         return new EstatisticaQuestao(id, submissoes, acertos, erros, taxaAcerto);
 
+    }
+
+    public EstatisticaAluno estatisticaAluno(Integer id){
+        List<QuestaoAluno> questoes = findAllByAlunoId(id);
+        if (questoes != null) {
+            int submissoes = questoes.toArray().length;
+
+            if (submissoes == 0) return new EstatisticaAluno(id, 0, 0, 0.0);
+
+            int acertos = 0;
+
+            for (QuestaoAluno questao : questoes){
+                if (questao.getAcerto() == 1){
+                    acertos++;
+                }
+            }
+
+            double taxaAcerto = (double) (acertos/submissoes) * 100;
+
+            return new EstatisticaAluno(id, submissoes, acertos, taxaAcerto);
+        } else {
+            return null;
+        }
     }
 
 }

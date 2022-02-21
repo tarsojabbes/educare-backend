@@ -1,8 +1,6 @@
 package com.tarsojabbes.educare.resources;
 
-import com.tarsojabbes.educare.domains.EstatisticaQuestao;
-import com.tarsojabbes.educare.domains.ModeloChecagemQuestao;
-import com.tarsojabbes.educare.domains.QuestaoAluno;
+import com.tarsojabbes.educare.domains.*;
 import com.tarsojabbes.educare.services.QuestaoAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,9 +43,20 @@ public class QuestaoAlunoResource {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/estatistica-questao/{id}")
-    private ResponseEntity<EstatisticaQuestao> estatisticaById(@PathVariable Integer id){
-        EstatisticaQuestao estatisticas = questaoAlunoService.estatisticas(id);
-        return ResponseEntity.ok().body(estatisticas);
+    private ResponseEntity<EstatisticaQuestao> estatisticaByQuestaoId(@PathVariable Integer id){
+        EstatisticaQuestao estatisticaQuestao = questaoAlunoService.estatisticaQuestao(id);
+        return ResponseEntity.ok().body(estatisticaQuestao);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/estatistica-aluno/{id}")
+    private ResponseEntity<?> estatisticaByAlunoId(@PathVariable Integer id){
+        EstatisticaAluno estatisticaAluno = questaoAlunoService.estatisticaAluno(id);
+        if (estatisticaAluno == null){
+            return ResponseEntity.badRequest().body(new CustomError(new Date(System.currentTimeMillis()),
+                    "Erro de autenticação ou usuário não encontrado"));
+        }
+
+        return ResponseEntity.ok().body(estatisticaAluno);
     }
 
 }
