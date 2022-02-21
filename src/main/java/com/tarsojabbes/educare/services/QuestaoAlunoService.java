@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuestaoAlunoService {
@@ -52,12 +53,16 @@ public class QuestaoAlunoService {
         Questao questao = questaoRepository.findAllById(questaoId);
         String alternativa_correta = questao.getAlternativa_correta();
 
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String date = format.format(new Date());
+
         if (alternativa_correta.equalsIgnoreCase(alternativa)) {
-            QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId, 1);
+
+            QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId, 1, date);
             insert(questaoAluno);
             return 1;
         }
-        QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId, 0);
+        QuestaoAluno questaoAluno = new QuestaoAluno(null, questaoId, alunoId, 0, date);
         insert(questaoAluno);
         return 0;
     }

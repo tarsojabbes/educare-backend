@@ -1,11 +1,12 @@
 package com.tarsojabbes.educare.domains;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class QuestaoAluno implements Serializable {
@@ -21,16 +22,22 @@ public class QuestaoAluno implements Serializable {
     private Integer alunoId;
     private Integer acerto;
 
+    @CreationTimestamp
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private String createdAt;
+
 
     public QuestaoAluno(){
 
     }
 
-    public QuestaoAluno(Integer id, Integer questaoId, Integer alunoId, Integer acerto) {
+    public QuestaoAluno(Integer id, Integer questaoId, Integer alunoId, Integer acerto, String createdAt) {
         this.id = id;
         this.questaoId = questaoId;
         this.alunoId = alunoId;
         this.acerto = acerto;
+        this.createdAt = createdAt;
     }
 
     public Integer getquestaoId() {
@@ -63,5 +70,13 @@ public class QuestaoAluno implements Serializable {
 
     public void setAcerto(Integer acerto) {
         this.acerto = acerto;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }
