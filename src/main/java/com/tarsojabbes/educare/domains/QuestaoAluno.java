@@ -1,12 +1,9 @@
 package com.tarsojabbes.educare.domains;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 public class QuestaoAluno implements Serializable {
@@ -22,9 +19,7 @@ public class QuestaoAluno implements Serializable {
     private Integer alunoId;
     private Integer acerto;
 
-    @CreationTimestamp
     @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
     private String createdAt;
 
 

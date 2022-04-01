@@ -1,6 +1,5 @@
 package com.tarsojabbes.educare.domains;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
